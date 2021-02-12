@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,9 +31,9 @@ public class VideoRecommendationService {
 
     @PostConstruct
     public void afterInit() {
-        for(int i = 1; i < 4; i++) {
+        for(int i = 1; i < 5; i++) {
             VideoRecommendation videoRecommendation = VideoRecommendation.builder()
-                    .rating(2+i)
+                    .rating(1+i)
                     .comment("Best video " + i)
                     .videoId((long) i)
                     .build();

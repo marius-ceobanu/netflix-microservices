@@ -5,7 +5,6 @@ import com.codecool.videorecommendation.entity.VideoRecommendation;
 import com.codecool.videorecommendation.service.VideoRecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +16,6 @@ public class VideoRecommendationController {
 
     @Autowired
     private VideoRecommendationService videoRecommendationService;
-
-    @Autowired
-    private Environment environment;
 
     @GetMapping("/{id}")
     public List<VideoRecommendation> getRecommendations(@PathVariable String id) {

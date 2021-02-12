@@ -1,4 +1,4 @@
-package com.codecool.videorecommendation.entity;
+package com.codecool.video.entity;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,16 +14,15 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VideoRecommendation {
+public class Video {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
-    private int rating;
-
-    private String comment;
+    private String name;
 
     @NotNull
-    private Long videoId;
+    private String url;
 }
