@@ -30,10 +30,10 @@ public class VideoService {
     @PostConstruct
     public void afterInit() {
         List<String> urls = new ArrayList<>();
-        urls.add("https://www.youtube.com/watch?v=h9PKIgpb2Bs");
-        urls.add("https://www.youtube.com/watch?v=jTN_IYDKTiE");
-        urls.add("https://www.youtube.com/watch?v=fzBDw279rJQ");
-        urls.add("https://www.youtube.com/watch?v=KOcAxiYwryY");
+        urls.add("h9PKIgpb2Bs");
+        urls.add("jTN_IYDKTiE");
+        urls.add("fzBDw279rJQ");
+        urls.add("KOcAxiYwryY");
         for(int i = 1; i < 5; i++) {
             Video video = Video.builder().name("Video " + i).url(urls.get(i-1)).build();
             videoRepository.save(video);
