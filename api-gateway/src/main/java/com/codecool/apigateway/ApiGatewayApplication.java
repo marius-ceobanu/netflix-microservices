@@ -20,6 +20,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
@@ -37,7 +38,7 @@ public class ApiGatewayApplication {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:3000");
+		config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		source.registerCorsConfiguration("/**", config);

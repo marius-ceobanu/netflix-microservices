@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
-@RequestMapping("/videos")
 public class VideoController {
 
     @Autowired

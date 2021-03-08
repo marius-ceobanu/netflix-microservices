@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AllVideos from "./AllVideos";
+import Login from "./Login";
 
 const apiUrl = "http://localhost:8762";
 
@@ -33,14 +34,17 @@ function MainPage() {
     //     mode:"cors",
     // };
 
-    // const storedJwt = localStorage.getItem('token');
-    // const [jwt, setJwt] = useState(storedJwt || null);
+    const storedJwt = localStorage.getItem('token');
+    const [jwt, setJwt] = useState(storedJwt || null);
     const [videos, setVideos] = useState([]);
     const [fetchError, setFetchError] = useState(null);
 
     const getVideos = async () => {
         try {
-            const { data } = await axios.get(`${apiUrl}/netflix/videos/all`);
+            const { data } = await axios.get(
+                `${apiUrl}/netflix/videos/all`,
+                {headers: { Authorization: `Bearer ${jwt}` }}
+                );
             setVideos(data);
             setFetchError(null);
         } catch (err) {
@@ -49,23 +53,27 @@ function MainPage() {
     };
 
     useEffect(() => {
-        getVideos().then(null);
-    }, [])
+        if(jwt !== null) {
+            getVideos().then(null);
+        }
+    }, [jwt])
 
-    // if (jwt !== null ) {
+    if (jwt !== null ) {
         return (
             <div>
+                {console.log(fetchError)}
                 <AllVideos videos={videos} />
             </div>
         );
-    // } else {
-    //     return (
-    //         <div>log in form
-    //             {console.log(videos.length)}
-    //             {console.log(fetchError)}
-    //             <button onClick={() => getVideos()}>login</button></div>
-    //     );
-    // }
+    } else {
+        return (
+            <div>
+                {console.log(fetchError)}
+                <Login setToken={(token) => setJwt(token)}
+                        setFetchError={(error) => setFetchError(error)}>login</Login>
+            </div>
+        );
+    }
 }
 
 export default MainPage;
