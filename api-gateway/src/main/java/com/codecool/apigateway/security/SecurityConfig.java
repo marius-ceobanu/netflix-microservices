@@ -1,7 +1,5 @@
-package com.codecool.apigateway.securiy;
+package com.codecool.apigateway.security;
 
-import com.codecool.apigateway.security.JwtTokenFilter;
-import com.codecool.apigateway.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .cors().and()
+                .cors().and()
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -36,8 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/netflix/account/**").permitAll()
                     .antMatchers("/test").permitAll()
                     .antMatchers(HttpMethod.POST, "/login").permitAll()
+                    .antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
                     .antMatchers(HttpMethod.POST, "/register").permitAll()
-                    .antMatchers("/netflix/videos/**").authenticated()
+                    .antMatchers(HttpMethod.OPTIONS, "/register").permitAll()
+                    .antMatchers(HttpMethod.OPTIONS, "/netflix/videos/**").authenticated()
+                    .antMatchers(HttpMethod.POST, "/netflix/videos/**").authenticated()
+                    .antMatchers(HttpMethod.GET, "/netflix/videos/**").authenticated()
                     .anyRequest().authenticated() // anything else is denied
                 .and()
                     .addFilterBefore(new JwtTokenFilter(jwtTokenService), UsernamePasswordAuthenticationFilter.class);

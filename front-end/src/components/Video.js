@@ -17,7 +17,10 @@ function Video(props) {
 
     const getVideos = async () => {
         try {
-            const { data } = await axios.get(`${apiUrl}/netflix/videos/${id}`);
+            const { data } = await axios.get(
+                `${apiUrl}/netflix/videos/${id}`,
+                {headers: { Authorization: `Bearer ${props.token}` }}
+            );
             setVideo(data);
             setFetchError(null);
         } catch (err) {
@@ -27,7 +30,10 @@ function Video(props) {
 
     const getRecommendations = async () => {
         try {
-            const { data } = await axios.get(`${apiUrl}/netflix/videos/${id}/recommendations`);
+            const { data } = await axios.get(
+                `${apiUrl}/netflix/videos/${id}/recommendations`,
+                {headers: { Authorization: `Bearer ${props.token}` }}
+            );
             setRecommendations(data);
             setFetchError(null);
         } catch (err) {
@@ -36,11 +42,15 @@ function Video(props) {
     };
 
     const addRecommendation = () => {
-        axios.post(`${apiUrl}/netflix/videos/${id}/addrecommendation`, {
+        axios.post(
+            `${apiUrl}/netflix/videos/${id}/addrecommendation`,
+            {
             rating: `${rating}`,
             comment: comment,
             videoId: `${id}`
-        })
+            },
+            {headers: { Authorization: `Bearer ${props.token}` }}
+        )
             .then((response) => {
                 console.log(response);
                 getRecommendations().then(null);

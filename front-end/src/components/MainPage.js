@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AllVideos from "./AllVideos";
 import Login from "./Login";
+import {Button} from "react-bootstrap";
 
 const apiUrl = "http://localhost:8762";
 
@@ -21,7 +22,7 @@ const apiUrl = "http://localhost:8762";
 //     }
 // );
 
-function MainPage() {
+function MainPage({ jwt, setToken, user, setUser }) {
     // let config = {
     //     headers: {
     //         'Access-Control-Allow-Origin': '*',
@@ -34,8 +35,6 @@ function MainPage() {
     //     mode:"cors",
     // };
 
-    const storedJwt = localStorage.getItem('token');
-    const [jwt, setJwt] = useState(storedJwt || null);
     const [videos, setVideos] = useState([]);
     const [fetchError, setFetchError] = useState(null);
 
@@ -62,6 +61,7 @@ function MainPage() {
         return (
             <div>
                 {console.log(fetchError)}
+                <Button className={"m-2"} onClick={() => {localStorage.clear(); window.location.reload()}}>{user}</Button>
                 <AllVideos videos={videos} />
             </div>
         );
@@ -69,8 +69,9 @@ function MainPage() {
         return (
             <div>
                 {console.log(fetchError)}
-                <Login setToken={(token) => setJwt(token)}
-                        setFetchError={(error) => setFetchError(error)}>login</Login>
+                <Login setToken={setToken}
+                        setFetchError={(error) => setFetchError(error)}
+                        setUser={setUser}>login</Login>
             </div>
         );
     }

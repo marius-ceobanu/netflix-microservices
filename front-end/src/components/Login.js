@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
-function Login({ setToken, setFetchError }) {
+function Login({ setToken, setFetchError, setUser }) {
 
     const submitLogin = async () => {
         try {
@@ -14,7 +15,9 @@ function Login({ setToken, setFetchError }) {
             );
             console.log(data);
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', data.username);
             setToken(data.token);
+            setUser(data.username);
             setFetchError(null);
         } catch (err) {
             setFetchError(err.message);
@@ -37,10 +40,10 @@ function Login({ setToken, setFetchError }) {
                         className="login-input p-2 m-2"
                         placeholder="Password"/><br/>
 
-                <button
+                <Button
                     type="button"
                     className="login-btn p-2 m-2"
-                    onClick={() => submitLogin()}>Login</button>
+                    onClick={() => submitLogin()}>Login</Button>
             </div>
         </div>
     );
