@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardColumns } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-import netflix_logo from '../img/netflix-logo-black-and-white.png';
+// import netflix_logo from '../img/netflix-logo-black-and-white.png';
 
 function AllVideos({ videos }) {
     return (
